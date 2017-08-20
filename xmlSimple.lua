@@ -1,4 +1,4 @@
-module(..., package.seeall)
+local xml = {}
 
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
@@ -9,6 +9,7 @@ module(..., package.seeall)
 --
 -- CHANGELOG:
 --
+-- 1.3 - Added newer module support
 -- 1.2 - Created new structure for returned table
 -- 1.1 - Fixed base directory issue with the loadFile() function.
 --
@@ -17,7 +18,7 @@ module(..., package.seeall)
 --
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-function newParser()
+function xml.newParser()
 
     XmlParser = {};
 
@@ -58,7 +59,7 @@ function newParser()
 
     function XmlParser:ParseXmlText(xmlText)
         local stack = {}
-        local top = newNode()
+        local top = xml.newNode()
         table.insert(stack, top)
         local ni, c, label, xarg, empty
         local i, j = 1, 1
@@ -71,11 +72,11 @@ function newParser()
                 stack[#stack]:setValue(lVal)
             end
             if empty == "/" then -- empty element tag
-                local lNode = newNode(label)
+                local lNode = xml.newNode(label)
                 self:ParseArgs(lNode, xarg)
                 top:addChild(lNode)
             elseif c == "" then -- start tag
-                local lNode = newNode(label)
+                local lNode = xml.newNode(label)
                 self:ParseArgs(lNode, xarg)
                 table.insert(stack, lNode)
 		top = lNode
@@ -121,7 +122,7 @@ function newParser()
     return XmlParser
 end
 
-function newNode(name)
+function xml.newNode(name)
     local node = {}
     node.___value = nil
     node.___name = name
@@ -167,3 +168,5 @@ function newNode(name)
 
     return node
 end
+
+return xml

@@ -1,7 +1,7 @@
 # Installation
 
 1.  Copy the xmlSimple.lua file to your project.
-2.  Create a local variable `local xml = require("xmlSimple.lua").newParser()`
+2.  Create a local variable `local xml = require("xmlSimple").newParser()`
 3.  Read xml using `xml:ParseXmlText(xmlString)` or `xml:loadFile(xmlFilename, base)`
 
 # Parsing XML
